@@ -40,7 +40,9 @@ public class IEventosImpl implements IEventos {
     @Override
     public List<Eventos> ListarEvento() {
         List<Eventos> Eventos = new ArrayList<>();
-        String query = "SELECT * FROM Eventos";
+        String query = "SELECT e.id_evento, e.id_creador, e.nombre_evento, e.fecha, e.hora, e.ubicacion, e.link_ubicacion, e.descripcion, e.fecha_creacion, em.nombre_empresa " +
+                "FROM eventos e " +
+                "INNER JOIN empresas em ON e.id_empresa = em.id_empresa";
 
         try (Connection con = conexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(query);
@@ -57,14 +59,14 @@ public class IEventosImpl implements IEventos {
                 eventos.setLink_ubicacion(rs.getString("link_ubicacion"));
                 eventos.setDescripcion(rs.getString("descripcion"));
                 eventos.setFecha_creacion(rs.getString("fecha_creacion"));
-
+                eventos.setEmpresa(rs.getString("nombre_empresa")); // 👈 Agregado
 
                 Eventos.add(eventos);
             }
-        } catch (SQLException e) {
+
+    } catch (SQLException e) {
             e.printStackTrace();
         }
         return Eventos;
     }
-
 }

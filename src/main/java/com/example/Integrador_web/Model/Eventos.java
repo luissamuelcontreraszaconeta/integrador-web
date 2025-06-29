@@ -10,11 +10,20 @@ public class Eventos {
     private String link_ubicacion;
     private String descripcion;
     private String fecha_creacion;
+    private String empresa;
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
 
     public Eventos() {
     }
 
-    public Eventos(int id_evento, int id_creador, String nombre_evento, String fecha, String hora, String ubicacion, String link_ubicacion, String descripcion, String fecha_creacion) {
+    public Eventos(int id_evento, int id_creador, String nombre_evento, String fecha, String hora, String ubicacion, String link_ubicacion, String descripcion, String fecha_creacion, String empresa) {
         this.id_evento = id_evento;
         this.id_creador = id_creador;
         this.nombre_evento = nombre_evento;
@@ -24,6 +33,7 @@ public class Eventos {
         this.link_ubicacion = link_ubicacion;
         this.descripcion = descripcion;
         this.fecha_creacion = fecha_creacion;
+        this.empresa = empresa;
     }
 
     public String getLink_ubicacion() {

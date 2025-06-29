@@ -39,8 +39,6 @@ public class IUsuarioImpl implements IUsuario {
                             rs.getString("correo_electronico"),
                             rs.getString("password_hash"),
                             rs.getString("fecha_registro"),
-                            rs.getString("ultimo_acceso"),
-                            rs.getBoolean("activo"),
                             rs.getString("dni")
 
                     );
@@ -53,7 +51,7 @@ public class IUsuarioImpl implements IUsuario {
     }
     @Override
     public void registrarUsuario(Usuario usuario) {
-        String sql = "INSERT INTO usuarios (nombre_completo, dni, correo_electronico, nombre_usuario, password_hash, id_tipo_usuario) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios (nombre_completo, dni, correo_electronico, nombre_usuario, password_hash) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection con = conexionBD.getConexion();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -63,7 +61,6 @@ public class IUsuarioImpl implements IUsuario {
             stmt.setString(3, usuario.getCorreo());
             stmt.setString(4, usuario.getNombreUsuario());
             stmt.setString(5, usuario.getContrasena()); // ⚠️ Cifra si es posible
-            stmt.setInt(6, 2); // 👈 Valor por defecto para id_tipo_usuario
 
             stmt.executeUpdate();
         } catch (SQLException e) {

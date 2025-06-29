@@ -1,5 +1,6 @@
 package com.example.Integrador_web.Service;
 
+import com.example.Integrador_web.Repository.IInscripcionEvento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Integrador_web.Model.Eventos;
@@ -11,6 +12,7 @@ import java.util.List;
 public class EventosService {
     @Autowired
     private  IEventos iEventos;
+    private IInscripcionEvento iInscripciones;
 
 
 
@@ -23,5 +25,8 @@ public class EventosService {
         iEventos.guardar(eventos);
     }
 
+    public boolean estaInscrito(int idUsuario,int idEvento) {
+        return iInscripciones.existeInscripcion(idUsuario, idEvento);
+    }
 
 }

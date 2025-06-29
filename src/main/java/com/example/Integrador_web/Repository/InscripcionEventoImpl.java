@@ -34,26 +34,29 @@ public class    InscripcionEventoImpl implements IInscripcionEvento {
             e.printStackTrace();
         }
     }
-
     @Override
     public List<Inscripciones> listarInscripcionesPorEvento(int idEvento) {
         List<Inscripciones> lista = new ArrayList<>();
-        String query = "SELECT * FROM inscripciones_eventos WHERE id_evento = ?";
+        String sql = "SELECT i.id_evento, i.id_usuario, i.fecha_inscripcion, i.asistio, u.nombre_completo " +
+                "FROM inscripciones_eventos i " +
+                "JOIN usuarios u ON i.id_usuario = u.id_usuario " +
+                "WHERE i.id_evento = ?";
 
         try (Connection con = conexionBD.getConexion();
-             PreparedStatement stmt = con.prepareStatement(query)) {
+             PreparedStatement stmt = con.prepareStatement(sql)) {
 
             stmt.setInt(1, idEvento);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Inscripciones ins = new Inscripciones();
-                ins.setId_inscripciones(rs.getInt("id_inscripcion"));
-                ins.setId_evento(rs.getInt("id_evento"));
-                ins.setId_usuario(rs.getInt("id_usuario"));
-                ins.setFecha_inscripcion(rs.getTimestamp("fecha_inscripcion"));
-                ins.setAsistencia(rs.getBoolean("asistencia"));
-                lista.add(ins);
+                Inscripciones insc = new Inscripciones();
+                insc.setId_evento(rs.getInt("id_evento"));
+                insc.setId_usuario(rs.getInt("id_usuario"));
+                insc.setFecha_inscripcion(rs.getTimestamp("fecha_inscripcion"));
+                insc.setAsistencia(rs.getBoolean("asistio"));
+                insc.setNombreUsuario(rs.getString("nombre_completo")); // Nuevo campo
+
+                lista.add(insc);
             }
 
         } catch (SQLException e) {
@@ -66,22 +69,46 @@ public class    InscripcionEventoImpl implements IInscripcionEvento {
 
     @Override
     public boolean existeInscripcion(int idUsuario, int idEvento) {
+        // Consulta SQL que cuenta cuántos registros existen con ese usuario y evento
         String query = "SELECT COUNT(*) FROM inscripciones_eventos WHERE id_usuario = ? AND id_evento = ?";
+
+        // Bloque try-with-resources que asegura que la conexión, statement y resultset se cierren automáticamente
+        try (Connection con = conexionBD.getConexion();             // Abre conexión a la base de datos
+             PreparedStatement stmt = con.prepareStatement(query)) { // Prepara la consulta parametrizada
+
+            // Establece los valores de los parámetros en el query
+            stmt.setInt(1, idUsuario); // Primer "?" será reemplazado por idUsuario
+            stmt.setInt(2, idEvento);  // Segundo "?" será reemplazado por idEvento
+
+            // Ejecuta la consulta y obtiene el resultado
+            ResultSet rs = stmt.executeQuery();
+
+            // Si hay un resultado (siempre habrá uno con COUNT), lo evalúa
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Si el conteo es mayor a 0, ya existe la inscripción
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Imprime el error si ocurre una excepción con la BD
+        }
+
+        // Si ocurre un error o no hay resultados, devuelve false por defecto
+        return false;
+    }
+
+    @Override
+    public void eliminarInscripcion(int idUsuario, int idEvento) {
+        String sql = "DELETE FROM inscripciones_eventos WHERE id_usuario = ? AND id_evento = ?";
         try (Connection con = conexionBD.getConexion();
-             PreparedStatement stmt = con.prepareStatement(query)) {
+             PreparedStatement stmt = con.prepareStatement(sql)) {
 
             stmt.setInt(1, idUsuario);
             stmt.setInt(2, idEvento);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
 }

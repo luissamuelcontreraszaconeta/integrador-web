@@ -27,32 +27,39 @@ public class EventosController {
     @Autowired
     private InscripcionesService inscripcionService;
 
-
     @GetMapping("/voluntariado")
     public String mostrarEventos(Model model, HttpSession session) {
         List<Eventos> listaEventos = eventosService.listareventos();
         model.addAttribute("eventos", listaEventos);
 
-        // Obtener el usuario logueado desde la sesión
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-        // Crear un mapa para saber si el usuario está inscrito en cada evento
         Map<Integer, Boolean> eventosInscritos = new HashMap<>();
+        Map<Integer, List<Inscripciones>> participantesPorEvento = new HashMap<>();
 
-        if (usuario != null) {
-            for (Eventos evento : listaEventos) {
+        for (Eventos evento : listaEventos) {
+            // Si hay un usuario logueado, verificar si está inscrito
+            if (usuario != null) {
                 boolean inscrito = inscripcionService.estaInscrito(usuario.getIdUsuario(), evento.getId_evento());
                 eventosInscritos.put(evento.getId_evento(), inscrito);
             }
+
+            // Cargar los participantes de cada evento
+            List<Inscripciones> participantes = inscripcionService.listarPorEvento(evento.getId_evento());
+            participantesPorEvento.put(evento.getId_evento(), participantes);
         }
 
-        // Enviar el mapa al HTML
-//        model.addAttribute("eventosInscritos", eventosInscritos);
-        model.addAttribute("eventosInscritos", new HashMap<Integer, Boolean>());
+        model.addAttribute("usuarioLogueado", usuario);
+        model.addAttribute("eventosInscritos", eventosInscritos);
+        model.addAttribute("participantesPorEvento", participantesPorEvento);
 
-
-        return "voluntariados"; // Tu vista HTML
+        return "voluntariados";
     }
+
+
+ // Tu vista HTML
+
+
 
 //    @PostMapping("/eventos/{id}/inscribirse")
 //    public String inscribirseEvento(@PathVariable("id") int idEvento, HttpSession session) {

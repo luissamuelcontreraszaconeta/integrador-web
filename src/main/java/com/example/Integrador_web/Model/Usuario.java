@@ -2,26 +2,20 @@ package com.example.Integrador_web.Model;
 
 public class Usuario {
     private int idUsuario;
-    private int idtipoUsuario;
     private String nombreCompleto;
     private String nombreUsuario;
     private String correo;
     private String contrasena;
     private String fecharegistro;
-    private String ultimoacceso;
-    private boolean activo;
     private String dni;
 
-    public Usuario(int idUsuario, String nombreCompleto, String nombreUsuario, String correo, String contrasena, String fecharegistro, String ultimoacceso, boolean activo, String dni) {
+    public Usuario(int idUsuario, String nombreCompleto, String nombreUsuario, String correo, String contrasena, String fecharegistro, String dni) {
         this.idUsuario = idUsuario;
-        this.idtipoUsuario = idtipoUsuario;
         this.nombreCompleto = nombreCompleto;
         this.nombreUsuario = nombreUsuario;
         this.correo = correo;
         this.contrasena = contrasena;
         this.fecharegistro = fecharegistro;
-        this.ultimoacceso = ultimoacceso;
-        this.activo = activo;
         this.dni = dni;
     }
 
@@ -36,14 +30,13 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String nombreCompleto, String nombreUsuario, String correo, String contrasena, String fecharegistro, String ultimoacceso, boolean activo) {
+    public Usuario(String nombreCompleto, String nombreUsuario, String correo, String contrasena, String fecharegistro) {
         this.nombreCompleto = nombreCompleto;
         this.nombreUsuario = nombreUsuario;
         this.correo = correo;
         this.contrasena = contrasena;
         this.fecharegistro = fecharegistro;
-        this.ultimoacceso = ultimoacceso;
-        this.activo = activo;
+
     }
 
 //    public Usuario(int idUsuario, String nombreCompleto, String nombreUsuario, String correo, String contrasena, String fecharegistro, String ultimoacceso, boolean activo) {
@@ -65,13 +58,6 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public int getIdtipoUsuario() {
-        return idtipoUsuario;
-    }
-
-    public void setIdtipoUsuario(int idtipoUsuario) {
-        this.idtipoUsuario = idtipoUsuario;
-    }
 
     public String getNombreCompleto() {
         return nombreCompleto;
@@ -113,20 +99,6 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public String getUltimoacceso() {
-        return ultimoacceso;
-    }
 
-    public void setUltimoacceso(String ultimoacceso) {
-        this.ultimoacceso = ultimoacceso;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
 }
 

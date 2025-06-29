@@ -21,21 +21,19 @@ public class UsuarioController {
     public String mostrarIngreo() {
         return "login";
     }
-
     @PostMapping("/validar")
 
     public String validarCliente(@RequestParam("dni") String dni,
                                  @RequestParam("contrasena") String contrasena,
                                  Model model,
                                  HttpSession session) {
-        System.out.println("Intentando validar usuario...");
-
         // Validar usuario
         Usuario usuario = usuarioService.validarCliente(dni, contrasena);
 
         if (usuario != null) {
             // Guardar el usuario en la sesión
             session.setAttribute("usuario", usuario);
+            System.out.println("Intentando validar usuario...");
             // Agregar el usuario al modelo si es necesario para la vista
             model.addAttribute("usuario", usuario);
 

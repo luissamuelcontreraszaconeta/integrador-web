@@ -10,4 +10,6 @@ public interface IInscripcionEvento {
     List<Inscripciones> listarInscripcionesPorEvento(int idEvento);
 
     boolean existeInscripcion(int idUsuario, int idEvento);
+
+    void eliminarInscripcion(int idUsuario, int idEvento);
 }

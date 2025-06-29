@@ -25,4 +25,9 @@ public class InscripcionesService {
         return iInscripciones.existeInscripcion(idUsuario, idEvento);
     }
 
+    public void eliminarInscripcion(int idUsuario, int idEvento) {
+        iInscripciones.eliminarInscripcion(idUsuario, idEvento);
+    }
+
+
 }

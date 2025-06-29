@@ -44,4 +44,15 @@ public class InscripcionEventoController {
         return "redirect:/Ecogreen/voluntariado"; // Redirige de vuelta a la lista de eventos
     }
 
+    @PostMapping("/eventos/{idEvento}/cancelar")
+    public String cancelarInscripcion(@PathVariable("idEvento") int idEvento, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario == null) {
+            return "redirect:/Ecogreen/login";
+        }
+
+        inscripcionesService.eliminarInscripcion(usuario.getIdUsuario(), idEvento);
+        return "redirect:/Ecogreen/voluntariado";
+    }
+
 }
