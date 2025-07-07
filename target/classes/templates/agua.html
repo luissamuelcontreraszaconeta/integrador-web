@@ -5,6 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuidado del Agua</title>
     <link rel="stylesheet" href="/CSS/agua.css">
+
+
+    <style>
+        section.apartado {
+            background-color: #f4f4f4;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: 40px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        section.apartado h2 {
+            font-size: 2em;
+            color: #2d572c;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        section.apartado p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .apartado-imagen {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .apartado-imagen img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #dcdcdc;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -30,26 +70,19 @@
     </header>
     
     <main>
-        <section>
-            <h2>Importancia del Cuidado del Agua</h2>
-            <p>El agua es un recurso vital para la vida en el planeta. Sin embargo, su disponibilidad está en riesgo debido al desperdicio y la contaminación.</p>
+
+        <section class="apartado">
+            <h2 th:text="${apartado.tituloA}">Título del apartado</h2>
+
+            <p th:text="${apartado.contenidoA}">
+                Contenido dinámico sobre el problema de la basura.
+            </p>
+
+            <div th:if="${apartado.rutaA != null}" class="apartado-imagen">
+                <img th:src="@{${apartado.rutaA}}" alt="Imagen relacionada">
+            </div>
         </section>
-        
-        <section>
-            <h2>Consejos para Ahorrar Agua</h2>
-            <ul>
-                <li>Repara fugas en grifos y tuberías. Un grifo que gotea puede desperdiciar hasta 30 litros de agua al día.</li>
-                <li>Cierra el grifo mientras te cepillas los dientes o te afeitas.</li>
-                <li>Utiliza la lavadora y el lavavajillas con cargas completas para evitar desperdicio de agua.</li>
-                <li>Riega las plantas en horas de menor evaporación, como temprano en la mañana o en la noche.</li>
-            </ul>
-        </section>
-        
-        <section>
-            <h2>Contaminación del Agua</h2>
-            <p>La contaminación del agua ocurre cuando sustancias dañinas como productos químicos, plásticos y residuos llegan a ríos, lagos y océanos.</p>
-            <p>Evita arrojar aceites, medicamentos o productos tóxicos por el desagüe.</p>
-        </section>
+
     </main>
     
     <footer>

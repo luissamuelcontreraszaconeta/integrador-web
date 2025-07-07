@@ -8,23 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/Ecogreen")
 public class VistasController
 {
-
-    @GetMapping("/index")
-    public String mostrarIndex() {
-        return "index";
-    }
-    @GetMapping("/contaminacion")
-    public String mostrarHamburguesas() {
-        return "contaminacion";
-    }
-    @GetMapping("/agua")
-    public String mostraragua() {
-        return "agua";
-    }
-    @GetMapping("/areas_verdes")
-    public String area_verde() {
-        return "areas_verdes";
-    }
+//
+//    @GetMapping("/index")
+//    public String mostrarIndex() {
+//        return "index";
+//    }
+//    @GetMapping("/contaminacion")
+//    public String mostrarHamburguesas() {
+//        return "contaminacion";
+//    }
+//    @GetMapping("/agua")
+//    public String mostraragua() {
+//        return "agua";
+//    }
+//    @GetMapping("/areas_verdes")
+//    public String area_verde() {
+//        return "areas_verdes";
+//    }
     @GetMapping("/reciclaje")
     public String resciclaje() {
         return "reciclaje";
@@ -54,8 +54,4 @@ public class VistasController
         return "seleccion";
     }
 
-    @GetMapping("/recompensas")
-    public String recompensa() {
-        return "recompensas";
-    }
 }

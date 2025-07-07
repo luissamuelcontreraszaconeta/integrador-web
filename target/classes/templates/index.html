@@ -60,45 +60,51 @@
       </div>
     </section>
     <section id="logros-destacados" class="text-center my-5">
-  <h2>Top Recolectores Responsables</h2>
-  <p>Estos son los usuarios que han superado los 40 kg de reciclaje esta semana. ¡Un aplauso para ellos! 👏♻️</p><br><br><br>
-  
-  <div class="row justify-content-center align-items-end podium-row">
-  <!-- Segundo lugar - Izquierda -->
-  <div class="col-md-4 order-1">
-    <div class="card border-secondary mb-3 podium-card second">
-      <div class="card-header bg-secondary text-white">🥈 2° - Jorge Fernández</div>
-      <div class="card-body">
-        <h5 class="card-title">55 kg reciclados</h5>
-        <p class="card-text">Ha motivado a su barrio a participar.</p>
-      </div>
-    </div>
-  </div>
+      <h2>Top Recolectores Responsables</h2>
+      <p>Estas son las empresas que han recolectado más residuos. ¡Un aplauso para ellos! 👏♻️</p><br><br><br>
 
-  <!-- Primer lugar - Centro -->
-  <div class="col-md-4 order-2">
-    <div class="card border-success mb-3 podium-card first">
-      <div class="card-header bg-success text-white">🥇 1° - María López</div>
-      <div class="card-body">
-        <h5 class="card-title">62 kg reciclados</h5>
-        <p class="card-text">Siempre activa en las jornadas de reciclaje.</p>
-      </div>
-    </div>
-  </div>
+      <div class="row justify-content-center align-items-end podium-row">
+        <!-- Segundo lugar -->
+        <div class="col-md-4 order-1" th:if="${topEmpresas.size() >= 2}">
+          <div class="card border-secondary mb-3 podium-card second">
+            <div class="card-header bg-secondary text-white">
+              🥈 2° - <span th:text="${topEmpresas[1].nombreEmpresa}">Empresa 2</span>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title" th:text="${topEmpresas[1].totalKg + ' kg reciclados'}"></h5>
+              <p class="card-text">¡Gran compromiso ambiental!</p>
+            </div>
+          </div>
+        </div>
 
-  <!-- Tercer lugar - Derecha -->
-  <div class="col-md-4 order-3">
-    <div class="card border-warning mb-3 podium-card third">
-      <div class="card-header bg-warning text-dark">🥉 3° - Diana Ramos</div>
-      <div class="card-body">
-        <h5 class="card-title">47 kg reciclados</h5>
-        <p class="card-text">Su constancia es inspiradora.</p>
-      </div>
-    </div>
-  </div>
-</div>
+        <!-- Primer lugar -->
+        <div class="col-md-4 order-2" th:if="${topEmpresas.size() >= 1}">
+          <div class="card border-success mb-3 podium-card first">
+            <div class="card-header bg-success text-white">
+              🥇 1° - <span th:text="${topEmpresas[0].nombreEmpresa}">Empresa 1</span>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title" th:text="${topEmpresas[0].totalKg + ' kg reciclados'}"></h5>
+              <p class="card-text">¡Liderando en reciclaje!</p>
+            </div>
+          </div>
+        </div>
 
-</section>
+        <!-- Tercer lugar -->
+        <div class="col-md-4 order-3" th:if="${topEmpresas.size() >= 3}">
+          <div class="card border-warning mb-3 podium-card third">
+            <div class="card-header bg-warning text-dark">
+              🥉 3° - <span th:text="${topEmpresas[2].nombreEmpresa}">Empresa 3</span>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title" th:text="${topEmpresas[2].totalKg + ' kg reciclados'}"></h5>
+              <p class="card-text">¡Ejemplo de constancia!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <section id="galeria-eventos">
       <h2>Eventos Destacados</h2>

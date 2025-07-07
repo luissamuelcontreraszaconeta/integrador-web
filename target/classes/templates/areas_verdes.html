@@ -5,6 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Áreas Verdes</title>
     <link rel="stylesheet" href="/CSS/areas_verdes.css">
+
+
+    <style>
+        section.apartado {
+            background-color: #f4f4f4;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: 40px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        section.apartado h2 {
+            font-size: 2em;
+            color: #2d572c;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        section.apartado p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .apartado-imagen {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .apartado-imagen img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #dcdcdc;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -31,30 +71,17 @@
     </header>
     
     <main>
-        <section>
-            <h2>Importancia de las Áreas Verdes</h2>
-            <p>Las áreas verdes son fundamentales para mejorar la calidad del aire, reducir la temperatura ambiental y proporcionar espacios de recreación y bienestar para las personas.</p>
-        </section>
-        
-        <section>
-            <h2>Beneficios de las Áreas Verdes</h2>
-            <ul>
-                <li>Reducen la contaminación del aire al absorber dióxido de carbono y liberar oxígeno.</li>
-                <li>Mejoran la salud mental y física al proporcionar espacios para el ejercicio y la relajación.</li>
-                <li>Regulan la temperatura en las ciudades y disminuyen el efecto de isla de calor urbano.</li>
-                <li>Favorecen la biodiversidad al ofrecer refugio a diversas especies de flora y fauna.</li>
-            </ul>
-        </section>
-        
-        <section>
-            <h2>Cómo Contribuir a la Expansión de Áreas Verdes</h2>
-            <p>Para aumentar la cantidad de áreas verdes en nuestra comunidad, podemos:</p>
-            <ul>
-                <li>Participar en programas de reforestación y plantación de árboles.</li>
-                <li>Cuidar los parques y jardines evitando arrojar basura.</li>
-                <li>Fomentar la creación de huertos urbanos y jardines comunitarios.</li>
-                <li>Apoyar iniciativas gubernamentales y privadas para la conservación del medio ambiente.</li>
-            </ul>
+
+        <section class="apartado">
+            <h2 th:text="${apartado.tituloV}">Título del apartado</h2>
+
+            <p th:text="${apartado.contenidoV}">
+                Contenido dinámico sobre el problema de la basura.
+            </p>
+
+            <div th:if="${apartado.rutaV != null}" class="apartado-imagen">
+                <img th:src="@{${apartado.rutaV}}" alt="Imagen relacionada">
+            </div>
         </section>
     </main>
     
