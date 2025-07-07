@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/Ecogreen")
 public class VistasController
 {
-//
 //    @GetMapping("/index")
 //    public String mostrarIndex() {
 //        return "index";

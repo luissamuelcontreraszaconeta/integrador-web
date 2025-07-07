@@ -12,10 +12,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/Ecogreen")
-
-
 public class EmpresaTopController {
-
     @Autowired
     private EmpresaTopService empresaService; // o el servicio que llame a tu repositorio
 
@@ -26,11 +23,11 @@ public class EmpresaTopController {
         return "index"; // este es el nombre del HTML
     }
 
-
-    @GetMapping("/")
-    public String redirigirInicio() {
-        return "redirect:/Ecogreen/index";
-    }
+//
+//    @GetMapping("/")
+//    public String redirigirInicio() {
+//        return "redirect:/Ecogreen/index";
+//    }
 
 }
 
