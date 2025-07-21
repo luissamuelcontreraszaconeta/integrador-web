@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +12,7 @@
 </head>
 <body>
   <header>
-    <h1><a href="index.html">Eco Green</a></h1>
+    <h1>Eco Green</h1>
     
     <nav>
       <ul>
@@ -19,6 +20,17 @@
         <li><a href="/Ecogreen/voluntariados_e">Eventos</a></li>
         <li><a href="/Ecogreen/foro_e">Foro</a></li>
         <li><a href="/Ecogreen/dash">Reporte</a></li>
+        <li th:if="${emprendedorLogueado == null}">
+          <a th:href="@{/Ecogreen/seleccion}">Iniciar Sesión / Crear Cuenta</a>
+        </li>
+        <li th:if="${emprendedorLogueado != null}">
+          <span style="font-weight: bold;">Bienvenido, <span th:text="${emprendedorLogueado.nombre_empresa}">Empresa</span> </span>
+        </li>
+        <li th:if="${emprendedorLogueado != null}">
+          <a th:href="@{/Ecogreen/logout}">Cerrar Sesión</a>
+        </li>
+
+
       </ul>
     </nav>
   </header>
@@ -46,45 +58,6 @@
         <img src="/IMG/mision.png" alt="Misión">
       </div>
     </section>
-    <section id="logros-destacados" class="text-center my-5">
-  <h2>Top Recolectores Responsables</h2>
-  <p>Estos son los usuarios que han superado los 40 kg de reciclaje esta semana. ¡Un aplauso para ellos! 👏♻️</p><br><br><br>
-  
-  <div class="row justify-content-center align-items-end podium-row">
-  <!-- Segundo lugar - Izquierda -->
-  <div class="col-md-4 order-1">
-    <div class="card border-secondary mb-3 podium-card second">
-      <div class="card-header bg-secondary text-white">🥈 2° - Jorge Fernández</div>
-      <div class="card-body">
-        <h5 class="card-title">55 kg reciclados</h5>
-        <p class="card-text">Ha motivado a su barrio a participar.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Primer lugar - Centro -->
-  <div class="col-md-4 order-2">
-    <div class="card border-success mb-3 podium-card first">
-      <div class="card-header bg-success text-white">🥇 1° - María López</div>
-      <div class="card-body">
-        <h5 class="card-title">62 kg reciclados</h5>
-        <p class="card-text">Siempre activa en las jornadas de reciclaje.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tercer lugar - Derecha -->
-  <div class="col-md-4 order-3">
-    <div class="card border-warning mb-3 podium-card third">
-      <div class="card-header bg-warning text-dark">🥉 3° - Diana Ramos</div>
-      <div class="card-body">
-        <h5 class="card-title">47 kg reciclados</h5>
-        <p class="card-text">Su constancia es inspiradora.</p>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
 
     <section id="galeria-eventos">
       <h2>Eventos Destacados</h2>

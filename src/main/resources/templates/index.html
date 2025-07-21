@@ -10,33 +10,36 @@
   <script src="/JS/top_empresas.js"></script>
 </head>
 <body>
-  <header>
-    <h1><a href="/Ecogreen/index">Eco Green</a></h1>
-    
-    <nav>
-      <ul>
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="/Ecogreen/contaminacion">Contaminación</a></li>
-        <li><a href="/Ecogreen/agua">Cuidado del Agua</a></li>
-        <li><a href="/Ecogreen/areas_verdes">Áreas Verdes</a></li>
-        <li><a href="/Ecogreen/reciclaje">Reciclaje</a></li>
-        <li><a href="/Ecogreen/voluntariado">Voluntariados</a></li>
-        <li><a href="/Ecogreen/foro">Foro</a></li>
-        <li><a href="/Ecogreen/seleccion">Elige como registrarte</a></li>
-        <li th:if="${usuarioLogueado == null}">
-          <a th:href="@{/Ecogreen/login}">Iniciar Sesión / Crear Cuenta</a>
-        </li>
+<header>
+  <h1><a href="/Ecogreen/index">Eco Green</a></h1>
 
-        <!-- Mostrar cerrar sesión si el usuario está logueado -->
-        <li th:if="${usuarioLogueado != null}">
-          <a th:href="@{/Ecogreen/logout}">Cerrar Sesión</a>
-        </li>
-        
-      </ul>
-    </nav>
-  </header>
+  <nav>
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="/Ecogreen/contaminacion">Contaminación</a></li>
+      <li><a href="/Ecogreen/agua">Cuidado del Agua</a></li>
+      <li><a href="/Ecogreen/areas_verdes">Áreas Verdes</a></li>
+      <li><a href="/Ecogreen/reciclaje">Reciclaje</a></li>
+      <li><a href="/Ecogreen/voluntariado">Voluntariados</a></li>
+      <li><a href="/Ecogreen/foro">Foro</a></li>
 
-  <main>
+      <li th:if="${usuarioLogueado == null}">
+        <a th:href="@{/Ecogreen/seleccion}">Iniciar Sesión / Crear Cuenta</a>
+      </li>
+
+      <li th:if="${usuarioLogueado != null}">
+        <span style="font-weight: bold;"> <span th:text="${usuarioLogueado.nombreCompleto}">Usuario</span> </span>
+      </li>
+
+      <li th:if="${usuarioLogueado != null}">
+        <a th:href="@{/Ecogreen/logout}">Cerrar Sesión</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+<main>
     <section id="inicio">
       <h2>Bienvenido</h2>
       <p>Únete a nuestra comunidad para contribuir con el cuidado del medio ambiente. En este espacio encontrarás información sobre cómo ayudar a reducir la contaminación, participar en voluntariados y adoptar hábitos ecológicos.</p>

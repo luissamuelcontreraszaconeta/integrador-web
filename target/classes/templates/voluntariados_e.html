@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,80 +19,77 @@
 
                 <li><a href="/Ecogreen/foro_e">Foro</a></li>
                 <li><a href="/Ecogreen/dash">Dashboard</a></li>
-                <li><a href="/Ecogreen/login_e">Iniciar Sesión / Crear Cuenta</a></li>
+                <li th:if="${emprendedorLogueado == null}">
+                    <a th:href="@{/Ecogreen/seleccion}">Iniciar Sesión / Crear Cuenta</a>
+                </li>
+                <li th:if="${emprendedorLogueado != null}">
+                    <span style="font-weight: bold;">Bienvenido, <span th:text="${emprendedorLogueado.nombre_empresa}">Empresa</span> 👋</span>
+                </li>
+                <li th:if="${emprendedorLogueado != null}">
+                    <a th:href="@{/Ecogreen/logout}">Cerrar Sesión</a>
+                </li>
               </ul>
         </nav>
     </header>
-    
+
     <main>
         <section id="eventos">
             <h2>Eventos Programados</h2>
-            <article>
-                <h3>Limpieza de Playa</h3>
-                <p><strong>Fecha:</strong> 15 de abril de 2025</p>
-                <p><strong>Hora:</strong> 9:00 AM</p>
-                <p><strong>Ubicación:</strong> Playa El Chaco</p>
-                <p><strong>Descripción:</strong> Únete a nuestro equipo para limpiar la playa y proteger la vida marina.</p>
-                <button>Inscribirse</button>
-                <button>Ver Ubicación</button>
-            </article>
-            
-            <article>
-                <h3>Reforestación Urbana</h3>
-                <p><strong>Fecha:</strong> 22 de abril de 2025</p>
-                <p><strong>Hora:</strong> 10:00 AM</p>
-                <p><strong>Ubicación:</strong> Parque Central</p>
-                <p><strong>Descripción:</strong> Ayuda a plantar árboles en la ciudad y mejora el aire que respiramos.</p>
-                <button>Inscribirse</button>
-                <button>Ver Ubicación</button>
-            </article>
-        </section>
-        
 
-        <section id="crear-evento">
-            <h2>Crear un Nuevo Evento</h2>
-            <form>
-                <label for="nombre">Nombre del Evento:</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Recoleccion de basura en el rio Ica" required>
-                
-                <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" name="fecha" required>
-                
-                <label for="hora">Hora:</label>
-                <input type="time" id="hora" name="hora" required>
-                
-                <label for="ubicacion">Ubicación:</label>
-                <input type="text" id="ubicacion" name="ubicacion" placeholder="Calle Los Ramirez al frente del Hospital" required>
+            <div th:each="evento : ${eventos}">
+                <article>
+                    <h3 th:text="${evento.nombre_evento}">Nombre del evento</h3>
 
-                <label for="mapa">Link de Google Maps:</label>
-                <input type="url" id="mapa" name="mapa" placeholder="https://maps.google.com" required>
-                
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" placeholder="Describe brevemente el evento" required></textarea>
-                
-                <button type="submit">Crear Evento</button>
-            </form>
+                    <p><strong>Fecha:</strong> <span th:text="${evento.fecha}">00/00/0000</span></p>
+                    <p><strong>Hora:</strong> <span th:text="${evento.hora}">00:00</span></p>
+                    <p><strong>Ubicación:</strong> <span th:text="${evento.ubicacion}">Lugar</span></p>
+                    <p><strong>Descripción:</strong> <span th:text="${evento.descripcion}">Descripción aquí</span></p>
+                    <p><strong>Empresa Participante:</strong> <span th:text="${evento.empresa}">Empresa</span></p>
+
+                    <h4>🎁 Incentivo del Evento</h4>
+                    <p><strong>Tipo de Incentivo:</strong> <span th:text="${evento.tipoincentivo}">Tipo aquí</span></p>
+                    <p><strong>Condiciones:</strong> <span th:text="${evento.condiciones}">Condiciones aquí</span></p>
+                    <p><strong>Restricciones:</strong> <span th:text="${evento.restricciones}">Restricciones aquí</span></p>
+                    <p><strong>Cantidad Disponible:</strong> <span th:text="${evento.cantidad}">0</span></p>
+
+                    <a th:href="${evento.link_ubicacion}" target="_blank">
+                        <button>Ver Ubicación</button>
+                    </a>
+
+                    <button type="button" th:attr="onclick='mostrarIntegrantes(' + ${evento.id_evento} + ')'">Ver Integrantes</button>
+
+                    <ul th:id="'integrantes-' + ${evento.id_evento}" style="display: none; margin-top: 10px;">
+                        <li th:each="inscrito : ${participantesPorEvento[evento.id_evento]}"
+                            th:text="${inscrito.nombreUsuario}">Participante</li>
+                    </ul>
+                </article>
+            </div>
         </section>
+
+
 
         <section id="galeria-eventos">
             <h2>Eventos Destacados</h2>
             <p>A lo largo del año realizamos diversas actividades en favor del medio ambiente. Aquí puedes ver imágenes de algunos de nuestros eventos más recientes.</p>
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="../IMG/voluntariado1.jpeg" class="d-block w-100" alt="Limpieza de playa">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/IMG/voluntariado1.jpeg" class="d-block w-100" alt="Limpieza de playa">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/IMG/voluntariado2.jpg" class="d-block w-100" alt="Voluntarios reforestando">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/IMG/voluntariado3.jpg" class="d-block w-100" alt="Jornada de reciclaje">
+                    </div>
                 </div>
-                <div class="carousel-item">
-                  <img src="../IMG/voluntariado2.jpg" class="d-block w-100" alt="Voluntarios reforestando">
-                </div>
-                <div class="carousel-item">
-                  <img src="../IMG/voluntariado3.jpg" class="d-block w-100" alt="Jornada de reciclaje">
-                </div>
-              </div>
             </div>
-            
-          </section>
+
+        </section>
     </main>
+
+
+
     
     <footer>
         <p>&copy; 2025 Eco Green. Todos los derechos reservados.</p>

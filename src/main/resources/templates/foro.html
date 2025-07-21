@@ -143,13 +143,13 @@
                 <li><a href="/Ecogreen/areas_verdes">Áreas Verdes</a></li>
                 <li><a href="/Ecogreen/reciclaje">Reciclaje</a></li>
                 <li><a href="/Ecogreen/voluntariado">Eventos</a></li>
-
-                <!-- Mostrar iniciar sesión solo si no hay usuario logueado -->
                 <li th:if="${usuarioLogueado == null}">
-                    <a th:href="@{/Ecogreen/login}">Iniciar Sesión / Crear Cuenta</a>
+                    <a th:href="@{/Ecogreen/seleccion}">Iniciar Sesión / Crear Cuenta</a>
                 </li>
 
-                <!-- Mostrar cerrar sesión si el usuario está logueado -->
+                <li th:if="${usuarioLogueado != null}">
+                    <span style="font-weight: bold;"> <span th:text="${usuarioLogueado.nombreCompleto}">Usuario</span> </span>
+                </li>
                 <li th:if="${usuarioLogueado != null}">
                     <a th:href="@{/Ecogreen/logout}">Cerrar Sesión</a>
                 </li>

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/Ecogreen")
 public class EmprendedorController {
     @Autowired
-    private final EmprendedorService emprendedorService;
+    private EmprendedorService emprendedorService;
     public EmprendedorController(EmprendedorService emprendedorService) {
         this.emprendedorService = emprendedorService;
     }
@@ -24,6 +24,7 @@ public class EmprendedorController {
         return "login_e";
     }
 
+
     @PostMapping("/validar_e")
 
     public String validarCliente(@RequestParam("ruc") String ruc,
@@ -32,8 +33,8 @@ public class EmprendedorController {
                                  HttpSession session) {
         System.out.println("Intentando validar empresa...");
 
-        // Validar usuario
         Emprendedores emprendedores = emprendedorService.validarCliente(ruc, contrasena);
+
 
         if (emprendedores != null) {
 
@@ -42,7 +43,8 @@ public class EmprendedorController {
             model.addAttribute("emprendedores", emprendedores);
 
             // Redirigir al index o página principal
-            return "emprendedor";
+            return "redirect:/Ecogreen/emprendedor";
+
         } else {
             // Si el usuario no es válido, mostrar error
             model.addAttribute("error", "RUC o contraseña incorrectos");

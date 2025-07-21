@@ -1,11 +1,138 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foro - Proyecto Medioambiental</title>
     <link rel="stylesheet" href="/CSS/foro.css">
 </head>
+
+<style>
+    /* Contenedor general del foro */
+    #foro {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+#foro article {
+    border-top: 2px solid #64DD17; /* línea verde lima */
+    padding-top: 20px;
+    margin-top: 30px;
+}
+#foro article:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+    /* Título principal */
+    #foro h2 {
+        color: #0056b3;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #28cc28;
+        padding-bottom: 10px;
+    }
+
+    /* Descripción */
+    #foro p {
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Título del foro */
+    .foro-titulo {
+        font-size: 20px;
+        font-weight: bold;
+        color: #1d3557;
+        margin-top: 30px;
+    }
+
+    /* Descripción del foro */
+    .foro-descripcion {
+        margin-bottom: 15px;
+        font-size: 15px;
+  text-align: left; /* <- aquí el cambio */
+    }
+
+    /* Lista de respuestas */
+    ul.respuestas {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 15px;
+    }
+
+    ul.respuestas li {
+        background-color: #e9f5e9;
+        border-left: 5px solid #28cc28;
+        padding: 10px 15px;
+        margin-bottom: 8px;
+        border-radius: 6px;
+    }
+
+    /* Nombre del usuario que responde */
+    .usuario-nombre {
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    /* Formulario de respuesta */
+    form.respuesta-form {
+        margin-top: 15px;
+    }
+
+    form.respuesta-form textarea {
+        width: 100%;
+        height: 80px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: none;
+        font-size: 14px;
+    }
+
+    form.respuesta-form button {
+        margin-top: 8px;
+        padding: 10px 20px;
+        background-color: #28cc28;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    form.respuesta-form button:hover {
+        background-color: #1fa01f;
+    }
+   .login-requerido {
+    background-color: #f4fdfa;           /* verde muy claro, suave */
+    border: 1px solid #64DD17;           /* verde lima de tu paleta */
+    padding: 15px;
+    border-radius: 6px;
+    color: #343a40;                      /* gris oscuro para buena lectura */
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.login-requerido a {
+    color: #01579B;                      /* azul oscuro de tu paleta */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-requerido a:hover {
+    text-decoration: underline;
+    color: #003f6b;                      /* azul oscuro más intenso al pasar el mouse */
+}
+
+</style>
 <body>
     <header>
         <h1><a href="/Ecogreen/emprendedor">Eco Green</a></h1>
@@ -13,7 +140,15 @@
             <ul>
                 <li><a href="/Ecogreen/voluntariados_e">Eventos</a></li>
                 <li><a href="/Ecogreen/dash">Reporte</a></li>
-                <li><a href="/Ecogreen/login">Iniciar Sesión / Crear Cuenta</a></li>
+                <li th:if="${emprendedorLogueado == null}">
+                    <a th:href="@{/Ecogreen/seleccion}">Iniciar Sesión / Crear Cuenta</a>
+                </li>
+                <li th:if="${emprendedorLogueado != null}">
+                    <span style="font-weight: bold;">Bienvenido, <span th:text="${emprendedorLogueado.nombre_empresa}">Empresa</span> </span>
+                </li>
+                <li th:if="${emprendedorLogueado != null}">
+                    <a th:href="@{/Ecogreen/logout}">Cerrar Sesión</a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -23,27 +158,22 @@
             <h2>Foro de Discusión</h2>
             <p>Comparte tus ideas, experiencias y dudas sobre cómo mejorar el medio ambiente.</p>
 
-            <!-- Lista de publicaciones -->
-            <section id="publicaciones">
-                <h3>Mensajes Recientes</h3>
-                <ul id="lista-mensajes"></ul>
-            </section>
+            <div th:each="foro : ${foros}">
+                <article>
+                    <h3 class="foro-titulo" th:text="${foro.nombre}">Título</h3>
+                    <p class="foro-descripcion" th:text="${foro.descripcion}">Descripción</p>
 
-            <!-- Formulario para publicar un mensaje -->
-            <form id="formulario-publicacion">
-                <div>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-
-                <div>
-                    <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-                </div>
-
-                <button type="submit">Publicar</button>
-            </form>
+                    <h4>Respuestas:</h4>
+                    <ul class="respuestas">
+                        <li th:each="respuesta : ${respuestasPorForo[foro.id_tema]}">
+                            <strong class="usuario-nombre" th:text="${respuesta.nombreUsuario}">Usuario</strong>
+                            <p th:text="${respuesta.contenido}">Contenido</p>
+                        </li>
+                    </ul>
+                </article>
+            </div>
         </section>
+
     </main>
 
     <footer>

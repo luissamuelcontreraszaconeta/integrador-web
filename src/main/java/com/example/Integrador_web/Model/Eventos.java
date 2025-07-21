@@ -11,6 +11,43 @@ public class Eventos {
     private String descripcion;
     private String fecha_creacion;
     private String empresa;
+    private String tipoincentivo;
+    private String condiciones;
+    private String restricciones;
+    private int cantidad;
+
+
+    public String getRestricciones() {
+        return restricciones;
+    }
+
+    public void setRestricciones(String restricciones) {
+        this.restricciones = restricciones;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getTipoincentivo() {
+        return tipoincentivo;
+    }
+
+    public void setTipoincentivo(String tipoincentivo) {
+        this.tipoincentivo = tipoincentivo;
+    }
+
+    public String getCondiciones() {
+        return condiciones;
+    }
+
+    public void setCondiciones(String condiciones) {
+        this.condiciones = condiciones;
+    }
 
     public String getEmpresa() {
         return empresa;

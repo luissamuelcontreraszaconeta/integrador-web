@@ -12,6 +12,6 @@ public class LogoutController {
     @GetMapping("/Ecogreen/logout")
     public String cerrarSesion(HttpSession session) {
         session.invalidate(); // Cierra sesión completamente
-        return "redirect:/Ecogreen/login"; // Puedes redirigir al login o al index
+        return "redirect:/Ecogreen/seleccion";
     }
 }

@@ -22,10 +22,12 @@
                 <li><a href="/Ecogreen/mis-recompensas">Recompensas</a></li>
                 <li><a href="/Ecogreen/foro">Foro</a></li>
                 <li th:if="${usuarioLogueado == null}">
-                    <a th:href="@{/Ecogreen/login}">Iniciar Sesión / Crear Cuenta</a>
+                    <a th:href="@{/Ecogreen/seleccion}">Iniciar Sesión / Crear Cuenta</a>
                 </li>
 
-                <!-- Mostrar cerrar sesión si el usuario está logueado -->
+                <li th:if="${usuarioLogueado != null}">
+                    <span style="font-weight: bold;"> <span th:text="${usuarioLogueado.nombreCompleto}">Usuario</span> </span>
+                </li>
                 <li th:if="${usuarioLogueado != null}">
                     <a th:href="@{/Ecogreen/logout}">Cerrar Sesión</a>
                 </li>
@@ -41,7 +43,6 @@
             <!-- Itera sobre la lista de eventos enviada desde el controlador -->
             <div th:each="evento : ${eventos}">
                 <article>
-                    <!-- Muestra el nombre del evento -->
                     <h3 th:text="${evento.nombre_evento}">Nombre del evento</h3>
 
                     <!-- Muestra la fecha del evento -->
@@ -64,15 +65,31 @@
                         <span th:text="${evento.descripcion}">Descripción aquí</span>
                     </p>
 
-                    <!-- Muestra la descripción del evento -->
+                    <!-- Muestra la empresa participante -->
                     <p><strong>Empresa Participante:</strong>
                         <span th:text="${evento.empresa}">Empresa</span>
+                    </p>
+
+                    <!-- Muestra información del incentivo -->
+                    <h4>🎁 Incentivo del Evento</h4>
+                    <p><strong>Tipo de Incentivo:</strong>
+                        <span th:text="${evento.tipoincentivo}">Tipo aquí</span>
+                    </p>
+                    <p><strong>Condiciones:</strong>
+                        <span th:text="${evento.condiciones}">Condiciones aquí</span>
+                    </p>
+                    <p><strong>Restricciones:</strong>
+                        <span th:text="${evento.restricciones}">Restricciones aquí</span>
+                    </p>
+                    <p><strong>Cantidad Disponible:</strong>
+                        <span th:text="${evento.cantidad}">0</span>
                     </p>
 
                     <!-- Enlace que abre la ubicación en Google Maps u otro link en una nueva pestaña -->
                     <a th:href="${evento.link_ubicacion}" target="_blank">
                         <button>Ver Ubicación</button>
                     </a>
+
 
                     <!-- Si el usuario NO está inscrito en este evento, muestra el botón para inscribirse -->
                     <form th:if="${!#maps.containsKey(eventosInscritos, evento.id_evento) or !eventosInscritos[evento.id_evento]}"
@@ -97,8 +114,6 @@
                         <li th:each="inscrito : ${participantesPorEvento[evento.id_evento]}"
                             th:text="${inscrito.nombreUsuario}">Participante</li>
                     </ul>
-
-
 
                 </article>
             </div>

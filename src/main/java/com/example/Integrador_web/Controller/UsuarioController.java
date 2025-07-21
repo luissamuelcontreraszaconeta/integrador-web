@@ -38,7 +38,7 @@ public class UsuarioController {
             model.addAttribute("usuario", usuario);
 
             // Redirigir al index o página principal
-            return "index";
+            return "redirect:/Ecogreen/index";
         } else {
             // Si el usuario no es válido, mostrar error
             model.addAttribute("error", "Usuario o contraseña incorrectos");

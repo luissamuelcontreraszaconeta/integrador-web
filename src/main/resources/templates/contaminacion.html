@@ -57,10 +57,9 @@
                 <li><a href="/Ecogreen/voluntariado">Eventos</a></li>
                 <li><a href="/Ecogreen/foro">Foro</a></li>
                 <li th:if="${usuarioLogueado == null}">
-                    <a th:href="@{/Ecogreen/login}">Iniciar Sesión / Crear Cuenta</a>
+                    <a th:href="@{/Ecogreen/seleccion}">Iniciar Sesión / Crear Cuenta</a>
                 </li>
 
-                <!-- Mostrar cerrar sesión si el usuario está logueado -->
                 <li th:if="${usuarioLogueado != null}">
                     <a th:href="@{/Ecogreen/logout}">Cerrar Sesión</a>
                 </li>
